@@ -1,0 +1,20 @@
+{
+  "name": "401midterm",
+  "version": "1.0.0",
+  "description": "Group project to demonstrate our accumulated skills and knowledge. A shopping app to compare prices across different stores for frequently purchased items.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "mongoose.Promise = Promise;",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.15.0"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "http": "0.0.0",
+    "mongoose": "^4.8.4",
+    "morgan": "^1.8.1"
+  }
+}
