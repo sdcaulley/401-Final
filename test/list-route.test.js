@@ -11,7 +11,7 @@ describe('list api', () => {
         mongoose.connection.dropDatabase();
     });
 
-    describe('list post routes', () => {
+    describe('list get routes', () => {
 
     });
 });
