@@ -27,8 +27,10 @@ describe('ITEMS API ROUTE TESTS', () => {
 
     it('POST /items adds item via Item schema', () => {
         return saveItem(cheese)
+
             .then(savedItem => {
                 assert.isOk(savedItem._id);
+                cheese._id = savedItem._id;
                 assert.equal(savedItem.name, cheese.name);
             });
     });
@@ -46,6 +48,10 @@ describe('ITEMS API ROUTE TESTS', () => {
             });
     });
 
-
+    it('GET /items/:id returns item by ID', () => {
+        return request.get(`/items/${cheese._id}`)
+            .then(req => req.body)
+            .then(item => assert.equal(item.name, cheese.name));
+    });
 
 });
