@@ -16,8 +16,8 @@ describe('ITEMS API ROUTE TESTS', () => {
     });
 
     let cheese = { name: 'cheese' };
-    // let stinkyCheese = { name: 'stinky cheese' };
-    // let worldsWorst = { name: 'world\'s stinkiest cheese' };
+    let stinkyCheese = { name: 'stinky cheese' };
+    let worldsWorst = { name: 'world\'s stinkiest cheese' };
 
     function saveItem(item) {
         return request.post('/items')
@@ -30,6 +30,19 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(savedItem => {
                 assert.isOk(savedItem._id);
                 assert.equal(savedItem.name, cheese.name);
+            });
+    });
+
+    it('GET /items returns list of items', () => {
+        return Promise.all([
+            saveItem(stinkyCheese),
+            saveItem(worldsWorst)
+        ])
+            .then(() => request.get('/items'))
+            .then(res => {
+                const items = res.body;
+                assert.equal(items.length, 3);
+                assert.equal(items[2].name, worldsWorst.name);
             });
     });
 
