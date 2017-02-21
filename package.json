@@ -1,4 +1,4 @@
-{  
+{
   "name": "final-project",
   "version": "1.0.0",
   "description": "The first final for the 401 class.",
@@ -22,8 +22,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "eslint": "^3.16.0",
     "mocha": "^3.2.0",
-    "morgan": "^1.8.1",
     "promise": "^7.1.1",
     "superagent": "^3.4.4"
   },
@@ -32,6 +32,8 @@
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "jsonwebtoken-promisified": "^1.0.3",
-    "mongoose": "^4.8.4"
+    "mongoose": "^4.8.4",
+    "mongoose-currency": "^0.2.0",
+    "morgan": "^1.8.1"
   }
 }
