@@ -54,4 +54,10 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(item => assert.equal(item.name, cheese.name));
     });
 
+    it('DELETE /items/:id deletes item by ID', () => {
+        return request.delete(`/items/${cheese._id}`)
+            .then(res => assert.isTrue(res.body.deleted));
+    });
+
+
 });
