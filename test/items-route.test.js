@@ -3,26 +3,35 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const assert = chai.assert;
 
-const mongoose = require('mongoose');
-
 const app = require('../lib/app');
 
 const request = chai.request(app);
 
 describe('ITEMS API ROUTE TESTS', () => {
 
-    before(() => mongoose.connection.dropDatabase());
-
-    it('GET returns an empty array of items', () => {
+    it('GET /items returns an empty array', () => {
         return request.get('/items')
             .then(req => req.body)
             .then(items => assert.deepEqual(items, []));
     });
 
+    let cheese = { name: 'cheese' };
+    // let stinkyCheese = { name: 'stinky cheese' };
+    // let worldsWorst = { name: 'world\'s stinkiest cheese' };
 
-    // it('POST adds items via Item schema', () => {
+    function saveItem(item) {
+        return request.post('/items')
+        .send(item)
+        .then(res => res.body);
+    }
 
-    // });
+    it('POST /items adds item via Item schema', () => {
+        return saveItem(cheese)
+            .then(savedItem => {
+                assert.isOk(savedItem._id);
+                assert.equal(savedItem.name, cheese.name);
+            });
+    });
 
 
 
