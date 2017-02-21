@@ -59,9 +59,20 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(res => assert.isTrue(res.body.deleted));
     });
 
-    it('DELETE /items/:id returns false if item does note exist', () => {
+    it('DELETE /items/:id returns false if item does not exist', () => {
         return request.delete(`/items/${cheese._id}`)
             .then(res => assert.isFalse(res.body.deleted));
+    });
+
+    it('GET /items/:id returns 404 when item does not exist', () => {
+        return request.get(`/items/${cheese._id}`)
+            .then(
+                () => { throw new Error('success status code not expected'); },
+                res => {
+                    assert.equal(res.status, 404);
+                    assert.isOk(res.response.body.error);
+                }
+            );
     });
 
     it('GET /items confirms item removed from list', () => {
