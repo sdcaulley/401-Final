@@ -59,5 +59,10 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(res => assert.isTrue(res.body.deleted));
     });
 
+    it('DELETE /items/:id returns false if item does note exist', () => {
+        return request.delete(`/items/${cheese._id}`)
+            .then(res => assert.isFalse(res.body.deleted));
+    });
+
 
 });
