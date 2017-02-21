@@ -64,5 +64,10 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(res => assert.isFalse(res.body.deleted));
     });
 
+    it('GET /items confirms item removed from list', () => {
+        return request.get('/items')
+            .then(req => req.body)
+            .then(items => assert.equal(items.length, 2));
+    });
 
 });
