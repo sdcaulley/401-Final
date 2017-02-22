@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
 
 describe.only('authenticate credentials', () => {
 
-    before(() => {
-        mongoose.connection.dropDatabase();
-    });
+    // before(() => {
+    //     mongoose.connection.dropDatabase();
+    // });
 
     const user = {
         name: 'test',
