@@ -1,12 +1,11 @@
 const assert = require('chai').assert;
-const Store = require('../lib/models/store-schema');
+const Store = require('../../lib/models/store-schema');
 const testInvalid = require('./test-invalid')(Store);
 const mongoose = require('mongoose');
 require('mongoose-currency').loadType(mongoose);
-var Currency = mongoose.Types.Currency;
 mongoose.Promise = Promise;
 
-describe('store schema', () => {
+describe.skip('store schema', () => {
     it('requires name', () => {
         return testInvalid({ brand: 'Kroger' });
     });
@@ -28,7 +27,7 @@ describe('store schema', () => {
     });
     it('checks to see if this object is the same as the data we have', () => {
         const data = { name: 'Fred Meyer', brand: 'Kroger', price: 344 };
-        const store = new Store(data)
+        const store = new Store(data);
 
         assert.equal(data.name, store.name);
         assert.equal(data.brand, store.brand);
