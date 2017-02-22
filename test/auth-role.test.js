@@ -2,7 +2,6 @@ const ensureRole = require('../lib/auth/ensure-role');
 const assert = require('chai').assert;
 
 describe('test ensureRole', () => {
-    let role;
     const res = {
         status(code) { this.code = code; return this; },
         send(error) { this.error = error; }
@@ -17,7 +16,7 @@ describe('test ensureRole', () => {
 
         ensureRole('owner')(req, res, (obj) => {
             assert.equal(obj.code, 403);
-            assert.equal(obj.error, 'unauthorized');
+            assert.equal(obj.error, 'unauthorized role');
         });
     });
 
