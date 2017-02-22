@@ -2,8 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const assert = chai.assert;
-const User = require('../lib/models/user-schema');
-const Token = require('../lib/auth/token');
+const User = require('../../lib/models/user-schema');
+const Token = require('../../lib/auth/token');
 
 const app = require('../../lib/app');
 
