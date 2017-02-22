@@ -1,16 +1,18 @@
 {
     "parserOptions": {
-		"ecmaVersion": 6,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"modules": true,
-			"impliedStrict": true
-		}
-	},
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true,
+            "impliedStrict": true
+        }
+    },
     "env": {
         "node": true,
         "mocha": true,
-        "es6": true
+        "es6": true,
+        "mongo": true,
+        "commonjs": true
     },
     "extends": "eslint:recommended",
     "rules": {
