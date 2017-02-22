@@ -12,6 +12,10 @@ describe('list api', () => {
         item: []
     };
 
+    let itemOne = {
+        name: 'cheese'
+    };
+
     function saveResource(resource, route) {
         return request.post(route)
             .send(resource)
@@ -28,6 +32,17 @@ describe('list api', () => {
                     assert.deepEqual(savedList, listOne);
                 });
         });
+        it('save existing item to list', () => {
+            return saveResource(itemOne, '/items')
+                .then(savedItem => {
+                    itemOne = savedItem;
+                    request.post(`/lists/${listOne._id}/additem`)
+                        .send(savedItem)
+                        .then(res => {
+                            assert.include(res.body.item, savedItem._id);
+                        });
+                });
+        });
     });
 
     describe('list GET routes', () => {
@@ -42,7 +57,24 @@ describe('list api', () => {
         it('GET list by id', () => {
             return request.get(`/lists/${listOne._id}`)
                 .then(res => {
-                    assert.deepEqual(res.body, listOne);
+                    assert.equal(res.body._id, listOne._id);
+                });
+        });
+    });
+
+    describe('list DELETE routes', () => {
+        it('remove item from list', () => {
+            return request.post(`/lists/${listOne._id}/removeitem`)
+                .send({ itemID: itemOne._id })
+                .then(res => {
+                    assert.notInclude(res.body.item, itemOne._id);
+                });
+        });
+
+        it('delete list', () => {
+            return request.del(`/lists/${listOne._id}`)
+                .then(res => {
+                    assert.deepEqual(res.body, { deleted: true });
                 });
         });
     });
