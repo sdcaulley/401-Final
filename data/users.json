@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "name": "Max",
+        "email": "noisyboy@codefellowspdx.com",
+        "hash": "#####",
+        "role": "owner"
+    }
+]
