@@ -4,7 +4,7 @@ chai.use(chaiHttp);
 const assert = chai.assert;
 const app = require('../lib/app');
 
-describe.only('authenticate credentials', () => {
+describe('authenticate credentials', () => {
 
     const user = {
         name: 'test',
