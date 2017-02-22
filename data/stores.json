@@ -1,69 +1,80 @@
-[{
-    "name": "Fred Meyer",
-    "description": "Burlingame Fred Meyer",
-    "brand": "Alpenrose",
-    "price": "$2.00",
-    "size": "1000",
-    "unit": "ml"
-},
-{
-    "name": "Walmart",
-    "description": "Pioneer Square",
-    "brand": "Moo",
-    "price": "$0.50",
-    "size": "1000",
-    "unit": "ml"
-},
-{
-    "name": "Whole Foods",
-    "description": "The Pearl",
-    "brand": "Super Expensive",
-    "price": "$10.00",
-    "size": "1000",
-    "unit": "ml"
-},
-{
-    "name": "Fred Meyer",
-    "description": "Burlingame Fred Meyer",
-    "brand": "Kroger",
-    "price": "$5.00",
-    "size": "18"
-},
-{
-    "name": "Walmart",
-    "description": "Pioneer Square",
-    "brand": "Chicken",
-    "price": "$1.00",
-    "size": "18"
-},
-{
-    "name": "Whole Foods",
-    "description": "The Pearl",
-    "brand": "Organicness",
-    "price": "$7.00",
-    "size": "18"
-},
-{
-    "name": "Fred Meyer",
-    "description": "Burlingame Fred Meyer",
-    "brand": "Orangie",
-    "price": "$5.00",
-    "size": "1000",
-    "unit": "ml"
-},
-{
-    "name": "Walmart",
-    "description": "Pioneer Square",
-    "brand": "Cuties",
-    "price": "$4.00",
-    "size": "1000",
-    "unit": "ml"
-},
-{
-    "name": "Whole Foods",
-    "description": "The Pearl",
-    "brand": "Mandarin",
-    "price": "$6.00",
-    "size": "1000",
-    "unit": "ml"
-}]
+[
+    {
+        "name": "Fred Meyer",
+        "description": "Burlingame Fred Meyer",
+        "brand": "Alpenrose",
+        "price": "$2.00",
+        "size": "1000",
+        "unit": "ml"
+    },
+
+    {
+        "name": "Walmart",
+        "description": "Pioneer Square",
+        "brand": "Moo",
+        "price": "$0.50",
+        "size": "1000",
+        "unit": "ml"
+    },
+    
+    {
+        "name": "Whole Foods",
+        "description": "The Pearl",
+        "brand": "Super Expensive",
+        "price": "$10.00",
+        "size": "1000",
+        "unit": "ml"
+    },
+
+    {
+        "name": "Fred Meyer",
+        "description": "Burlingame Fred Meyer",
+        "brand": "Kroger",
+        "price": "$5.00",
+        "size": "18"
+    },
+
+    {
+        "name": "Walmart",
+        "description": "Pioneer Square",
+        "brand": "Chicken",
+        "price": "$1.00",
+        "size": "18"
+    },
+
+    {
+        "name": "Whole Foods",
+        "description": "The Pearl",
+        "brand": "Organicness",
+        "price": "$7.00",
+        "size": "18"
+    },
+
+    {
+        "name": "Fred Meyer",
+        "description": "Burlingame Fred Meyer",
+        "brand": "Orangie",
+        "price": "$5.00",
+        "size": "1000",
+        "unit": "ml"
+    },
+
+    {
+        "name": "Walmart",
+        "description": "Pioneer Square",
+        "brand": "Cuties",
+        "price": "$4.00",
+        "size": "1000",
+        "unit": "ml"
+    },
+
+    {
+        "name": "Whole Foods",
+        "description": "The Pearl",
+        "brand": "Mandarin",
+        "price": "$6.00",
+        "size": "1000",
+        "unit": "ml"
+    }
+
+]
