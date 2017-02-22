@@ -2,14 +2,9 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const assert = chai.assert;
-const app = require('../lib/app');
-const mongoose = require('mongoose');
+const app = require('../../lib/app');
 
-describe.only('authenticate credentials', () => {
-
-    before(() => {
-        mongoose.connection.dropDatabase();
-    });
+describe('authenticate credentials', () => {
 
     const user = {
         name: 'test',
