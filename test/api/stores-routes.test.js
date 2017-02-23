@@ -103,4 +103,15 @@ describe('store routes', () => {
             .set('Authorization', token)
             .then(res => assert.isFalse(res.body.deleted));
     });
+    it('GET /stores/:id - returns 404 when store does not exist', () => {
+        return request.get(`/stores/${storeTest._id}`)
+            .set('Authorization', token)
+            .then(
+                () => { throw new Error('success status code not expected'); },
+                res => {
+                    assert.equal(res.status, 404);
+                    assert.isOk(res.response.body.error);
+                }
+            );
+    });
 });
