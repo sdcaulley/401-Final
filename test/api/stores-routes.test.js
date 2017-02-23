@@ -123,6 +123,7 @@ describe('store routes', () => {
                 }
             );
     });
+    
     it('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
         return request.get(`/stores/${storeTestOne._id}`)
             .set('Authorization', token)
