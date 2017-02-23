@@ -36,6 +36,7 @@ let storeTestTwo = {
 
 describe('store routes', () => {
     let token = '';
+    
     before(() => {
         return User.findOne({ name: 'test' })
             .then(user => {
@@ -45,6 +46,7 @@ describe('store routes', () => {
                 return token = data;
             });
     });
+    
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTest)
@@ -55,6 +57,7 @@ describe('store routes', () => {
                 assert.ok(storeTest._id);
             })
     });
+    
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestOne)
@@ -65,6 +68,7 @@ describe('store routes', () => {
                 assert.ok(storeTestOne._id);
             })
     });
+    
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestTwo)
@@ -75,6 +79,7 @@ describe('store routes', () => {
                 assert.ok(storeTestTwo._id);
             })
     });
+    
     it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
         return request.get('/stores')
             .set('Authorization', token)
@@ -87,22 +92,26 @@ describe('store routes', () => {
                 assert.equal(res.body[2].unitPrice, 1000);
         }); 
     });
+    
     it('GET /stores/:id - gets specific store by ID', () => {
         return request.get(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(req => req.body)
             .then(store => assert.equal(store.name, storeTest.name));
     });
+    
     it('DELETE /stores/:id - deletes specific store by ID', () => {
         return request.delete(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(res => assert.isTrue(res.body.deleted));
     });
+    
     it('DELETE /stores/:id - returns false if item does not exist', () => {
         return request.delete(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(res => assert.isFalse(res.body.deleted));
     });
+    
     it('GET /stores/:id - returns 404 when store does not exist', () => {
         return request.get(`/stores/${storeTest._id}`)
             .set('Authorization', token)
@@ -114,5 +123,30 @@ describe('store routes', () => {
                 }
             );
     });
-    
-});
+    it('PUT /stores/:id - updates store', () => {
+        return request.get(`/stores/${storeTestOne._id}`)
+            .set('Authorization', token)
+            storeTestOne.name = 'Whole Foods';
+        it('PUT /stores/:id - updates store', () => {
+            return request.put(`/storess/${storeTestOne._id}`)
+                .set('Authorization', token)
+                .send(storeTestOne)
+                .then(res => {
+                    assert.deepEqual(res.body, storeTestOne);
+                    return request.get(`/stores/${storeTestOne._id}`);
+                })
+                .then(res => {
+                    assert.deepEqual(res.body.name, storeTestOne.name);
+                });
+            it('GET /stores confirms deleted store and updated store', () => {
+                return request.get('/stores')
+                    .set('Authorization', token)
+                    .then(req => req.body)
+                    .then(stores => {
+                        assert.equal(stores.length, 2)
+                        assert.equal(stores[1].name, 'Whole Foods')
+                    });
+                });
+            });
+        });
+    });
