@@ -129,7 +129,7 @@ describe('store routes', () => {
             storeTestOne.name = 'Whole Foods';
 
         it('PUT /stores/:id - updates store', () => {
-            return request.put(`/storess/${storeTestOne._id}`)
+            return request.put(`/stores/${storeTestOne._id}`)
                 .set('Authorization', token)
                 .send(storeTestOne)
                 .then(res => {
@@ -140,7 +140,7 @@ describe('store routes', () => {
                     assert.deepEqual(res.body.name, storeTestOne.name);
                 });
                 
-            it('GET /stores confirms deleted store and updated store', () => {
+            it('GET all /stores after update and delete', () => {
                 return request.get('/stores')
                     .set('Authorization', token)
                     .then(req => req.body)
