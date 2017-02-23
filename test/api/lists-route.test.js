@@ -2,10 +2,10 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const assert = chai.assert;
-const app = require('../lib/app');
+const app = require('../../lib/app');
 const request = chai.request(app);
-const User = require('../lib/models/user-schema');
-const Token = require('../lib/auth/token');
+const User = require('../../lib/models/user-schema');
+const Token = require('../../lib/auth/token');
 
 describe('list api', () => {
 
