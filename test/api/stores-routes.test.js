@@ -10,33 +10,34 @@ const app = require('../../lib/app');
 const request = chai.request(app);
 
 let storeTest = {
-        name: 'Fred Meyer',
-        description: 'Burlingame Fred Meyer',
-        brand: 'Alpenrose',
-        price: '$5.00',
-        size: 25,
-        unit: 'ml'
-}
+    name: 'Fred Meyer',
+    description: 'Burlingame Fred Meyer',
+    brand: 'Alpenrose',
+    price: '$5.00',
+    size: 25,
+    unit: 'ml'
+};
+
 let storeTestOne = {
-        name: 'Walmart',
-        description: 'Somewhere',
-        brand: 'Hillside',
-        price: '$100.00',
-        size: 10,
-        unit: 'ml'
-}
+    name: 'Walmart',
+    description: 'Somewhere',
+    brand: 'Hillside',
+    price: '$100.00',
+    size: 10,
+    unit: 'ml'
+};
 let storeTestTwo = {
-        name: 'Trader Joes',
-        description: 'Pearl',
-        brand: 'Hummus',
-        price: '$1.00',
-        size: 50,
-        unit: 'oz'
-}
+    name: 'Trader Joes',
+    description: 'Pearl',
+    brand: 'Hummus',
+    price: '$1.00',
+    size: 50,
+    unit: 'oz'
+};
 
 describe('store routes', () => {
     let token = '';
-    
+
     before(() => {
         return User.findOne({ name: 'test' })
             .then(user => {
@@ -46,7 +47,7 @@ describe('store routes', () => {
                 return token = data;
             });
     });
-    
+
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTest)
@@ -55,9 +56,9 @@ describe('store routes', () => {
                 storeTest.__v = res.body.__v;
                 storeTest._id = res.body._id;
                 assert.ok(storeTest._id);
-            })
+            });
     });
-    
+
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestOne)
@@ -66,9 +67,9 @@ describe('store routes', () => {
                 storeTestOne.__v = res.body.__v;
                 storeTestOne._id = res.body._id;
                 assert.ok(storeTestOne._id);
-            })
+            });
     });
-    
+
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestTwo)
@@ -95,28 +96,29 @@ describe('store routes', () => {
                 assert.equal(res.body[1].unitPrice, 2);
                 assert.equal(res.body[2].unitPrice, 20);
                 assert.equal(res.body[3].unitPrice, 1000);
-        }); 
+        });
     });
-    
+
+
     it('GET /stores/:id - gets specific store by ID', () => {
         return request.get(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(req => req.body)
             .then(store => assert.equal(store.name, storeTest.name));
     });
-    
+
     it('DELETE /stores/:id - deletes specific store by ID', () => {
         return request.delete(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(res => assert.isTrue(res.body.deleted));
     });
-    
+
     it('DELETE /stores/:id - returns false if item does not exist', () => {
         return request.delete(`/stores/${storeTest._id}`)
             .set('Authorization', token)
             .then(res => assert.isFalse(res.body.deleted));
     });
-    
+
     it('GET /stores/:id - returns 404 when store does not exist', () => {
         return request.get(`/stores/${storeTest._id}`)
             .set('Authorization', token)
@@ -132,7 +134,7 @@ describe('store routes', () => {
     it('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
         return request.get(`/stores/${storeTestOne._id}`)
             .set('Authorization', token)
-            storeTestOne.name = 'Whole Foods';
+        storeTestOne.name = 'Whole Foods';
 
         it('PUT /stores/:id - updates store', () => {
             return request.put(`/stores/${storeTestOne._id}`)
@@ -145,7 +147,7 @@ describe('store routes', () => {
                 .then(res => {
                     assert.deepEqual(res.body.name, storeTestOne.name);
                 });
-                
+
             it('GET all /stores after update and delete', () => {
                 return request.get('/stores')
                     .set('Authorization', token)
@@ -154,7 +156,7 @@ describe('store routes', () => {
                         assert.equal(stores.length, 2)
                         assert.equal(stores[1].name, 'Whole Foods')
                     });
-                });
             });
         });
     });
+});
