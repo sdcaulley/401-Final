@@ -93,4 +93,9 @@ describe('store routes', () => {
             .then(req => req.body)
             .then(store => assert.equal(store.name, storeTest.name));
     });
+    it('DELETE /stores/:id - deletes specific store by ID', () => {
+        return request.delete(`/stores/${storeTest._id}`)
+            .set('Authorization', token)
+            .then(res => assert.isTrue(res.body.deleted));
+    });
 });
