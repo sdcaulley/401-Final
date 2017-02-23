@@ -123,10 +123,11 @@ describe('store routes', () => {
                 }
             );
     });
-    it('PUT /stores/:id - updates store', () => {
+    it('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
         return request.get(`/stores/${storeTestOne._id}`)
             .set('Authorization', token)
             storeTestOne.name = 'Whole Foods';
+
         it('PUT /stores/:id - updates store', () => {
             return request.put(`/storess/${storeTestOne._id}`)
                 .set('Authorization', token)
@@ -138,6 +139,7 @@ describe('store routes', () => {
                 .then(res => {
                     assert.deepEqual(res.body.name, storeTestOne.name);
                 });
+                
             it('GET /stores confirms deleted store and updated store', () => {
                 return request.get('/stores')
                     .set('Authorization', token)
