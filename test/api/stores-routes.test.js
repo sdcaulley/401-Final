@@ -84,12 +84,17 @@ describe('store routes', () => {
         return request.get('/stores')
             .set('Authorization', token)
             .then(res => {
-                assert.equal(res.body[0]._id, storeTestTwo._id);
-                assert.equal(res.body[1]._id, storeTest._id);
-                assert.equal(res.body[2]._id, storeTestOne._id);
-                assert.equal(res.body[0].unitPrice, 2);
-                assert.equal(res.body[1].unitPrice, 20);
-                assert.equal(res.body[2].unitPrice, 1000);
+                const itemStore = res.body[0];
+                //we are saving a store for testing purposes in the items test so there is one exra store being saved
+                console.log(res.body)
+                assert.equal(res.body[0]._id, itemStore._id)
+                assert.equal(res.body[1]._id, storeTestTwo._id);
+                assert.equal(res.body[2]._id, storeTest._id);
+                assert.equal(res.body[3]._id, storeTestOne._id);
+                assert.equal(res.body[0].unitPrice, 0.2);
+                assert.equal(res.body[1].unitPrice, 2);
+                assert.equal(res.body[2].unitPrice, 20);
+                assert.equal(res.body[3].unitPrice, 1000);
         }); 
     });
     
