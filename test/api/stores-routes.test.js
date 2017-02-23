@@ -13,9 +13,25 @@ let storeTest = {
         name: 'Fred Meyer',
         description: 'Burlingame Fred Meyer',
         brand: 'Alpenrose',
-        price: '$2.00',
-        size: 1000,
+        price: '$5.00',
+        size: 25,
         unit: 'ml'
+}
+let storeTestOne = {
+        name: 'Walmart',
+        description: 'Somewhere',
+        brand: 'Hillside',
+        price: '$100.00',
+        size: 10,
+        unit: 'ml'
+}
+let storeTestTwo = {
+        name: 'Trader Joes',
+        description: 'Pearl',
+        brand: 'Hummus',
+        price: '$1.00',
+        size: 50,
+        unit: 'oz'
 }
 
 describe('store routes', () => {
@@ -37,6 +53,26 @@ describe('store routes', () => {
                 storeTest.__v = res.body.__v;
                 storeTest._id = res.body._id;
                 assert.ok(storeTest._id);
+            })
+    });
+    it('creates a store', () => {
+        return request.post('/stores')
+            .send(storeTestOne)
+            .set('Authorization', token)
+            .then(res => {
+                storeTestOne.__v = res.body.__v;
+                storeTestOne._id = res.body._id;
+                assert.ok(storeTestOne._id);
+            })
+    });
+    it('creates a store', () => {
+        return request.post('/stores')
+            .send(storeTestTwo)
+            .set('Authorization', token)
+            .then(res => {
+                storeTestTwo.__v = res.body.__v;
+                storeTestTwo._id = res.body._id;
+                assert.ok(storeTestTwo._id);
             })
     });
     it('gets all stores', () => {

@@ -39,3 +39,18 @@ Today, we split work individually.
 - Price comparison method
 - Account roles
 - Aggregation
+
+## Wedneday 02/22/2017
+Today we worked both individually and together 
+
+### Daily Goal: Work on the account roles and price comparison/Aggregation
+- I'm not sure how far Stephanie and Lynn got on the account roles but they worked on that
+- We have a lot of work to do still for the aggregation and price comparison
+- Michelle and Claire worked on json data files for testing purposes
+- Claire wrote store routes and tests so we can have object id's being produced to pass into the item object
+
+### Where we go from here
+- We need to have a group meeting first thing Thursday morning
+- We need to plan and discuss specifically the price comparison and how to accomplish that
+- We need to push all of our code up onto Heroku
+- Test everything with Postman
