@@ -75,11 +75,17 @@ describe('store routes', () => {
                 assert.ok(storeTestTwo._id);
             })
     });
-    it('gets all stores', () => {
+    it('gets all stores and sorts by unit price highest to lowest', () => {
         return request.get('/stores')
             .set('Authorization', token)
             .then(res => {
                 console.log(res.body);
+                assert.equal(res.body[0]._id, storeTestTwo._id);
+                assert.equal(res.body[1]._id, storeTest._id);
+                assert.equal(res.body[2]._id, storeTestOne._id);
+                assert.equal(res.body[0].unitPrice, 2);
+                assert.equal(res.body[1].unitPrice, 20);
+                assert.equal(res.body[2].unitPrice, 1000);
         }); 
     });
 });
