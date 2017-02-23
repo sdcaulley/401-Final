@@ -54,3 +54,23 @@ Today we worked both individually and together
 - We need to plan and discuss specifically the price comparison and how to accomplish that
 - We need to push all of our code up onto Heroku
 - Test everything with Postman
+
+## Thursday 02/23/2017
+This is the final push! We are working on getting the account roles finalized and the store routes/Aggregation.
+
+### Daily Goal: Be prepared for presentations tomorrow. Try to push everything up on Heroku and test on Postman.
+- Johnny and Claire finished the price comparison and aggregation
+- Lynn is working on the account routes and authenticate the ensure authorization
+- Michelle is working on updating the items route to require a store
+- Stephanie is working on the account routes 
+
+### Where we go from here
+- This is the final stretch ladies!
+- Claire is finishing the store routes and making sure the store objects are actually populating and sorting correctly
+- Lynn and Stephanie are working on the account routes and roles
+- Michelle is working on the update method so the stores can be added to the items
+- We are going to meet right now for a brief overview
+- Work on our sections and meet around 2:00 or 3:00
+- Try to merge all of our work together to push up onto Heroku
+- Test our app on Postman
+- Celebrate that we got through another final project week!!
