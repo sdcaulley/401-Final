@@ -98,4 +98,9 @@ describe('store routes', () => {
             .set('Authorization', token)
             .then(res => assert.isTrue(res.body.deleted));
     });
+    it('DELETE /stores/:id - returns false if item does not exist', () => {
+        return request.delete(`/stores/${storeTest._id}`)
+            .set('Authorization', token)
+            .then(res => assert.isFalse(res.body.deleted));
+    });
 });
