@@ -45,7 +45,7 @@ describe('store routes', () => {
                 return token = data;
             });
     });
-    it('creates a store', () => {
+    it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTest)
             .set('Authorization', token)
@@ -55,7 +55,7 @@ describe('store routes', () => {
                 assert.ok(storeTest._id);
             })
     });
-    it('creates a store', () => {
+    it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestOne)
             .set('Authorization', token)
@@ -65,7 +65,7 @@ describe('store routes', () => {
                 assert.ok(storeTestOne._id);
             })
     });
-    it('creates a store', () => {
+    it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestTwo)
             .set('Authorization', token)
@@ -114,4 +114,5 @@ describe('store routes', () => {
                 }
             );
     });
+    
 });
