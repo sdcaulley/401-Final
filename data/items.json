@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Milk",
+        "attributes": ["organic", "local"]
+    },
+
+    {
+        "name": "Eggs",
+        "attributes": []
+    },
+
+    {
+        "name": "Orange Juice",
+        "attributes": []
+    }
+]
