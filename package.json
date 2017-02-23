@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint {lib, test}/*/*.js",
     "pretest": "npm run lint",
-    "test": "mocha",
+    "test": "mocha --recursive",
     "start": "node server"
   },
   "repository": {

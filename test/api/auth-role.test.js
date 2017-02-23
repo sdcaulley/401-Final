@@ -1,4 +1,4 @@
-const ensureRole = require('../lib/auth/ensure-role');
+const ensureRole = require('../../lib/auth/ensure-role');
 const assert = require('chai').assert;
 
 describe('test ensureRole', () => {
