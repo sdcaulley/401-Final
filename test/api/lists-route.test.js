@@ -46,18 +46,18 @@ describe.skip('list api', () => {
                     assert.deepEqual(savedList, listOne);
                 });
         });
-        it('save existing item to list', () => {
-            return saveResource(itemOne, '/items')
-                .then(savedItem => {
-                    itemOne = savedItem;
-                    request.post(`/lists/${listOne._id}/additem`)
-                        .set('Authorization', token)
-                        .send(savedItem)
-                        .then(res => {
-                            assert.include(res.body.item, savedItem._id);
-                        });
-                });
-        });
+        // it('save existing item to list', () => {
+        //     return saveResource(itemOne, '/items')
+        //         .then(savedItem => {
+        //             itemOne = savedItem;
+        //             request.post(`/lists/${listOne._id}/additem`)
+        //                 .set('Authorization', token)
+        //                 .send(savedItem)
+        //                 .then(res => {
+        //                     assert.include(res.body.item, savedItem._id);
+        //                 });
+        //         });
+        // });
     });
 
     describe('list GET routes', () => {

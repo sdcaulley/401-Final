@@ -29,9 +29,18 @@ describe.skip('ITEMS API ROUTE TESTS', () => {
             .then(items => assert.deepEqual(items, []));
     });
 
-    let cheese = { name: 'cheese' };
-    let stinkyCheese = { name: 'stinky cheese' };
-    let worldsWorst = { name: 'world\'s stinkiest cheese' };
+    let cheese = { item: 'cheese', attributes: ['American'], store: 'Fred Meyer'  };
+    let stinkyCheese = { item: 'stinky cheese', attributes: ['Italian'], store: 'Fred Meyer' };
+    let worldsWorst = { item: 'world\'s stinkiest cheese', attributes: ['French'], store: 'Fred Meyer' };
+
+    let fredMeyer = { 
+        'name': 'Fred Meyer',
+        'description': 'Burlingame Fred Meyer',
+        'brand': 'Alpenrose',
+        'price': '$2.00',
+        'size': '1000',
+        'unit': 'ml'
+    };
 
     function saveItem(item) {
         return request.post('/items')
@@ -40,12 +49,24 @@ describe.skip('ITEMS API ROUTE TESTS', () => {
             .then(res => res.body);
     }
 
+    function saveStore(store) {
+        return request.post('/stores')
+            .set('Authorization', token)
+            .send(store)
+            .then(res => res.body);
+    }
+
+    before('loads store for testing', () => {
+        saveStore(fredMeyer);
+    });
+
+
     it('POST /items adds item via Item schema', () => {
         return saveItem(cheese)
             .then(savedItem => {
                 assert.isOk(savedItem._id);
                 cheese._id = savedItem._id;
-                assert.equal(savedItem.name, cheese.name);
+                assert.equal(savedItem.item, cheese.item);
             });
     });
 
@@ -56,7 +77,7 @@ describe.skip('ITEMS API ROUTE TESTS', () => {
             .then(res => {
                 const items = res.body;
                 assert.equal(items.length, 3);
-                assert.equal(items[2].name, worldsWorst.name);
+                assert.equal(items[2].item, worldsWorst.item);
             });
     });
 
@@ -64,7 +85,7 @@ describe.skip('ITEMS API ROUTE TESTS', () => {
         return request.get(`/items/${cheese._id}`)
             .set('Authorization', token)
             .then(req => req.body)
-            .then(item => assert.equal(item.name, cheese.name));
+            .then(item => assert.equal(item.item, cheese.item));
     });
 
     it('DELETE /items/:id deletes item by ID', () => {
