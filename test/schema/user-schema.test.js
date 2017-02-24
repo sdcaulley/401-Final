@@ -2,7 +2,7 @@ const User = require('../../lib/models/user-schema');
 const testInvalid = require('./test-invalid')(User);
 const assert = require('chai').assert;
 
-describe.skip('user schema', () => {
+describe('user schema', () => {
     it('requires name', () => {
         return testInvalid({ email: 'chlaw101@gmail.com' });
     });

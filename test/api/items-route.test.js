@@ -4,6 +4,7 @@ chai.use(chaiHttp);
 const assert = chai.assert;
 const User = require('../../lib/models/user-schema');
 const Token = require('../../lib/auth/token');
+const Store = require('../../lib/models/store-schema');
 
 const app = require('../../lib/app');
 
@@ -12,8 +13,10 @@ const request = chai.request(app);
 describe('ITEMS API ROUTE TESTS', () => {
 
     let token = '';
+    let role = '';
+
     before(() => {
-        return User.findOne({ name: 'test' })
+        return User.findOne({ name: 'me' })
             .then(user => {
                 return Token.sign(user.id);
             })
@@ -29,11 +32,11 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(items => assert.deepEqual(items, []));
     });
 
-    let cheese = { item: 'cheese', attributes: ['American'], store: 'Fred Meyer'  };
-    let stinkyCheese = { item: 'stinky cheese', attributes: ['Italian'], store: 'Fred Meyer' };
-    let worldsWorst = { item: 'world\'s stinkiest cheese', attributes: ['French'], store: 'Fred Meyer' };
+    let cheese = { name: 'cheese', attributes: ['American'], store: [] };
+    let stinkyCheese = { name: 'stinky cheese', attributes: ['Italian'], store: [] };
+    let worldsWorst = { name: 'world\'s stinkiest cheese', attributes: ['French'], store: [] };
 
-    let fredMeyer = { 
+    let fredMeyer = {
         'name': 'Fred Meyer',
         'description': 'Burlingame Fred Meyer',
         'brand': 'Alpenrose',
@@ -42,8 +45,9 @@ describe('ITEMS API ROUTE TESTS', () => {
         'unit': 'ml'
     };
 
-    function saveItem(item) {
+    function saveItem(item, role) {
         return request.post('/items')
+            .query({ role })
             .set('Authorization', token)
             .send(item)
             .then(res => res.body);
@@ -51,18 +55,23 @@ describe('ITEMS API ROUTE TESTS', () => {
 
     function saveStore(store) {
         return request.post('/stores')
+            .query({ role })
             .set('Authorization', token)
             .send(store)
             .then(res => res.body);
     }
 
     before('loads store for testing', () => {
-        saveStore(fredMeyer);
+        return saveStore(fredMeyer)
+            .then(store => fredMeyer._id = store._id);
     });
 
-
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('POST /items adds item via Item schema', () => {
-        return saveItem(cheese)
+        // take this out when we have accounts object
+        role = 'owner';
+        return saveItem(cheese, role)
             .then(savedItem => {
                 assert.isOk(savedItem._id);
                 cheese._id = savedItem._id;
@@ -70,8 +79,19 @@ describe('ITEMS API ROUTE TESTS', () => {
             });
     });
 
+    it('POST add store to item', () => {
+        return request.post(`/items/${cheese._id}/addstore`)
+            .set('Authorization', token)
+            .set('Role', 'owner')
+            .send({ store_id: fredMeyer._id })
+            .then(res => {
+                assert.include(res.body.stores, fredMeyer._id);
+            });
+
+    });
+
     it('GET /items returns list of items', () => {
-        return Promise.all([saveItem(stinkyCheese), saveItem(worldsWorst)])
+        return Promise.all([saveItem(stinkyCheese, role), saveItem(worldsWorst, role)])
             .then(() => request.get('/items')
                 .set('Authorization', token))
             .then(res => {
@@ -88,14 +108,35 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(item => assert.equal(item.item, cheese.item));
     });
 
+
+
+    it('removes store from item', () => {
+        return request.post(`/items/${cheese._id}/removestore`)
+            .set('Authorization', token)
+            .set('Role', 'owner')
+            .send({ store_id: fredMeyer._id })
+            .then(res => {
+                assert.equal(res.body.stores, undefined);
+            });
+    });
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('DELETE /items/:id deletes item by ID', () => {
-        return request.delete(`/items/${cheese._id}`)
+        role = 'owner';
+
+        return request
+            .delete(`/items/${cheese._id}`)
+            .query({ role })
             .set('Authorization', token)
             .then(res => assert.isTrue(res.body.deleted));
     });
 
+
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('DELETE /items/:id returns false if item does not exist', () => {
         return request.delete(`/items/${cheese._id}`)
+            .query({ role })
             .set('Authorization', token)
             .then(res => assert.isFalse(res.body.deleted));
     });

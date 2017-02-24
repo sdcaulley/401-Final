@@ -7,21 +7,19 @@ describe('test ensureRole', () => {
         send(error) { this.error = error; }
     };
     const req = {
-        user: {
-            roles: []
+        params: {
+            role: 'owner'
         }
     };
 
     it(' no role returns error ', () => {
-
-        ensureRole('owner')(req, res, (obj) => {
+        ensureRole('user')(req, res, (obj) => {
             assert.equal(obj.code, 403);
             assert.equal(obj.error, 'unauthorized role');
         });
     });
 
     it(' user role returns true ', () => {
-        req.user.roles = ['user', 'owner'];
         ensureRole('owner')(req, res, () => {
             assert.isOk(1);
         });

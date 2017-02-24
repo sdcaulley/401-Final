@@ -5,6 +5,7 @@ const assert = chai.assert;
 const User = require('../../lib/models/user-schema');
 const Token = require('../../lib/auth/token');
 
+
 const app = require('../../lib/app');
 
 const request = chai.request(app);
@@ -36,20 +37,28 @@ let storeTestTwo = {
 };
 
 describe('store routes', () => {
+
     let token = '';
+    let role = '';
 
     before(() => {
         return User.findOne({ name: 'test' })
             .then(user => {
+                console.log(user);
                 return Token.sign(user.id);
             })
             .then(data => {
                 return token = data;
             });
     });
+    
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('POST /stores - creates a store', () => {
+        role = 'owner';
         return request.post('/stores')
+            .set('role', role)
             .send(storeTest)
             .set('Authorization', token)
             .then(res => {
@@ -59,9 +68,13 @@ describe('store routes', () => {
             });
     });
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('POST /stores - creates a store', () => {
+        role = 'owner';
         return request.post('/stores')
             .send(storeTestOne)
+            .set('role', role)
             .set('Authorization', token)
             .then(res => {
                 storeTestOne.__v = res.body.__v;
@@ -70,29 +83,38 @@ describe('store routes', () => {
             });
     });
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
             .send(storeTestTwo)
+            .set('role', role)
             .set('Authorization', token)
             .then(res => {
                 storeTestTwo.__v = res.body.__v;
                 storeTestTwo._id = res.body._id;
                 assert.ok(storeTestTwo._id);
-            });
+            })
+    });
+    
+    it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
+        return request.get('/stores')
+            .set('Authorization', token)
+            .then(res => {
+                const itemStore = res.body[0];
+                //we are saving a store for testing purposes in the items test so there is one exra store being saved
+                console.log(res.body)
+                assert.equal(res.body[0]._id, itemStore._id)
+                assert.equal(res.body[1]._id, storeTestTwo._id);
+                assert.equal(res.body[2]._id, storeTest._id);
+                assert.equal(res.body[3]._id, storeTestOne._id);
+                assert.equal(res.body[0].unitPrice, 0.2);
+                assert.equal(res.body[1].unitPrice, 2);
+                assert.equal(res.body[2].unitPrice, 20);
+                assert.equal(res.body[3].unitPrice, 1000);
+        });
     });
 
-    // it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
-    //     return request.get('/stores')
-    //         .set('Authorization', token)
-    //         .then(res => {
-    //             assert.equal(res.body[0]._id, storeTestTwo._id);
-    //             assert.equal(res.body[1]._id, storeTest._id);
-    //             assert.equal(res.body[2]._id, storeTestOne._id);
-    //             assert.equal(res.body[0].unitPrice, 2);
-    //             assert.equal(res.body[1].unitPrice, 20);
-    //             assert.equal(res.body[2].unitPrice, 1000);
-    //         });
-    // });
 
     it('GET /stores/:id - gets specific store by ID', () => {
         return request.get(`/stores/${storeTest._id}`)
@@ -101,14 +123,20 @@ describe('store routes', () => {
             .then(store => assert.equal(store.name, storeTest.name));
     });
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('DELETE /stores/:id - deletes specific store by ID', () => {
         return request.delete(`/stores/${storeTest._id}`)
+            .set('role', role)
             .set('Authorization', token)
             .then(res => assert.isTrue(res.body.deleted));
     });
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     it('DELETE /stores/:id - returns false if item does not exist', () => {
         return request.delete(`/stores/${storeTest._id}`)
+            .set('role', role)
             .set('Authorization', token)
             .then(res => assert.isFalse(res.body.deleted));
     });
@@ -124,32 +152,28 @@ describe('store routes', () => {
                 }
             );
     });
-    it('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
-        return request.get(`/stores/${storeTestOne._id}`)
+
+    it.skip('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
+        return request.put(`/stores/${storeTestOne._id}`)
+            .set('role', role)
             .set('Authorization', token)
-        storeTestOne.name = 'Whole Foods';
-
-        it('PUT /stores/:id - updates store', () => {
-            return request.put(`/stores/${storeTestOne._id}`)
-                .set('Authorization', token)
-                .send(storeTestOne)
-                .then(res => {
-                    assert.deepEqual(res.body, storeTestOne);
-                    return request.get(`/stores/${storeTestOne._id}`);
-                })
-                .then(res => {
-                    assert.deepEqual(res.body.name, storeTestOne.name);
-                });
-
-            it('GET all /stores after update and delete', () => {
-                return request.get('/stores')
-                    .set('Authorization', token)
-                    .then(req => req.body)
-                    .then(stores => {
-                        assert.equal(stores.length, 2)
-                        assert.equal(stores[1].name, 'Whole Foods')
-                    });
+            .send(storeTestOne)
+            .then(res => {
+                assert.deepEqual(res.body, storeTestOne);
+                return request.get(`/stores/${storeTestOne._id}`);
+            })
+            .then(res => {
+                assert.deepEqual(res.body.name, storeTestOne.name);
             });
-        });
     });
-});
+    it.skip('GET all /stores after update and delete', () => {
+        return request.get('/stores')
+            .set('Authorization', token)
+            .then(req => req.body)
+            .then(stores => {
+                assert.equal(stores.length, 2)
+                assert.equal(stores[1].name, 'Whole Foods')
+            });
+
+    });
+

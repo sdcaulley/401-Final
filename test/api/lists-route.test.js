@@ -10,8 +10,10 @@ const Token = require('../../lib/auth/token');
 describe('list api', () => {
 
     let token = '';
+    let role = '';
+
     before(() => {
-        return User.findOne({ name: 'test' })
+        return User.findOne({ name: 'me' })
             .then(user => {
                 return Token.sign(user.id);
             })
@@ -31,12 +33,16 @@ describe('list api', () => {
 
     function saveResource(resource, route) {
         return request.post(route)
+            .query({ role })
             .set('Authorization', token)
             .send(resource)
             .then(res => res.body);
     }
 
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     describe('list POST routes', () => {
+        role = 'owner';
         it('create a new list', () => {
             return saveResource(listOne, '/lists')
                 .then(savedList => {
@@ -78,9 +84,14 @@ describe('list api', () => {
         });
     });
 
+
+    // TODO: request accounts here and get role for that account and replace following code
+    // take this out when we have accounts object
     describe('list DELETE routes', () => {
+        role = 'owner';
         it('remove item from list', () => {
             return request.post(`/lists/${listOne._id}/removeitem`)
+                .query({ role })
                 .set('Authorization', token)
                 .send({ itemID: itemOne._id })
                 .then(res => {
@@ -88,8 +99,11 @@ describe('list api', () => {
                 });
         });
 
+        // TODO: request accounts here and get role for that account and replace following code
+        // take this out when we have accounts object
         it('delete list', () => {
             return request.del(`/lists/${listOne._id}`)
+                .query({ role })
                 .set('Authorization', token)
                 .then(res => {
                     assert.deepEqual(res.body, { deleted: true });
