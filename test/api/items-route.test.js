@@ -15,7 +15,7 @@ describe('ITEMS API ROUTE TESTS', () => {
     let role = '';
 
     before(() => {
-        return User.findOne({ name: 'test' })
+        return User.findOne({ name: 'me' })
             .then(user => {
                 return Token.sign(user.id);
             })
