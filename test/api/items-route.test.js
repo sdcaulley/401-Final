@@ -80,10 +80,10 @@ describe('ITEMS API ROUTE TESTS', () => {
     });
 
     it('POST add store to item', () => {
-        return request.post(`/items/${cheese._id}/addstore`)
+        return request.post(`/items/${cheese._id}/addinfo`)
             .set('Authorization', token)
             .set('Role', 'owner')
-            .send({ store_id: fredMeyer._id })
+            .send({ stores: fredMeyer._id })
             .then(res => {
                 assert.include(res.body.stores, fredMeyer._id);
             });
