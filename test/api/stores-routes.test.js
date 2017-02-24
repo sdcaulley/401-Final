@@ -36,17 +36,20 @@ let storeTestTwo = {
 };
 
 describe('store routes', () => {
+
     let token = '';
 
     before(() => {
         return User.findOne({ name: 'test' })
             .then(user => {
+                console.log(user);
                 return Token.sign(user.id);
             })
             .then(data => {
                 return token = data;
             });
     });
+    
 
     it('POST /stores - creates a store', () => {
         return request.post('/stores')
@@ -130,33 +133,15 @@ describe('store routes', () => {
                 }
             );
     });
-    
+
+
     it('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
-        return request.get(`/stores/${storeTestOne._id}`)
+        return request.put(`/stores/${storeTestOne._id}`)
             .set('Authorization', token)
-        storeTestOne.name = 'Whole Foods';
-
-        it('PUT /stores/:id - updates store', () => {
-            return request.put(`/stores/${storeTestOne._id}`)
-                .set('Authorization', token)
-                .send(storeTestOne)
-                .then(res => {
-                    assert.deepEqual(res.body, storeTestOne);
-                    return request.get(`/stores/${storeTestOne._id}`);
-                })
-                .then(res => {
-                    assert.deepEqual(res.body.name, storeTestOne.name);
-                });
-
-            it('GET all /stores after update and delete', () => {
-                return request.get('/stores')
-                    .set('Authorization', token)
-                    .then(req => req.body)
-                    .then(stores => {
-                        assert.equal(stores.length, 2)
-                        assert.equal(stores[1].name, 'Whole Foods')
-                    });
-            });
+            .send({store_name: 'Whole Foods'})
+            .then(res => {
+                assert.deepEqual(res.body.name, 'Whole Foods');
+            })
         });
     });
-});
+
