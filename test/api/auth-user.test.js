@@ -4,6 +4,7 @@ chai.use(chaiHttp);
 const assert = chai.assert;
 const app = require('../../lib/app');
 
+
 describe('authenticate credentials', () => {
 
     const user = {
@@ -27,23 +28,32 @@ describe('authenticate credentials', () => {
                 }
             );
         it('signup requires username', () =>
-            badRequest('/signup', { password: 'pwtest' }, 'username and password must be supplied')
+            badRequest('/signup', { password: 'pwtest' }, 'username, password, and email must be supplied for signup')
         );
 
         it('signup requires password', () =>
-            badRequest('/signup', { name: 'pwtest' }, 'username and password must be supplied')
+            badRequest('/signup', { name: 'pwtest' }, 'username, password, and email must be supplied for signup')
+        );
+
+        it('signup requires email', () =>
+            badRequest('/signup', { name: 'test', password: 'pwtest' }, 'username, password, and email must be supplied for signup')
         );
 
         let token = '';
 
-        it('signup', () =>
-            request
-            .post('/signup')
-            .send(user)
-            .then(res => assert.ok(token = res.body.token))
-        );
+        it('signup', () => {
+            console.log('user in signup ', user);
+            return request
+                .post('/signup')
+                .send(user)
+                .then(res => {
+                    token = res.body.token;
+                    console.log('token in signup is ', token);
+                    assert.ok(token);
+                });
+        });
 
-        it('can\'t use same username', () =>
+        it.skip('can\'t use same username', () =>
             badRequest('/signup', user, 'username test already exists')
         );
 
