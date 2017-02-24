@@ -1,16 +1,19 @@
 [
     {
         "name": "Milk",
-        "attributes": ["organic", "local"]
+        "attributes": ["organic", "local"],
+        "stores": ["Fred Meyer", "Walmart"]
     },
 
     {
         "name": "Eggs",
-        "attributes": []
+        "attributes": [],
+        "stores": ["Whole Foods"]
     },
 
     {
         "name": "Orange Juice",
-        "attributes": []
+        "attributes": ["orange"],
+        "stores": ["Walmart"]
     }
 ]
