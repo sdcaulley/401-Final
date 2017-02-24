@@ -1,0 +1,88 @@
+[
+{
+    "name": "Code Fellows",
+    "description": "Coding school",
+    "item": "Computer",
+    "brand": "Portland",
+    "price": "$200.00",
+    "size": "1",
+    "unit": "oz"
+},
+{
+    "name": "Walla-Walla",
+    "description": "Washington",
+    "item": "Computer",
+    "brand": "Moo",
+    "price": "$1000",
+    "size": "153",
+    "unit": "ml"
+},
+    
+{
+    "name": "Hello",
+    "description": "Mt. Tabor",
+    "item": "Computer",
+    "brand": "Super Expensive",
+    "price": "$1000000",
+    "size": "1",
+    "unit": "fl.oz"
+},
+
+{
+    "name": "Freddies",
+    "description": "Hawthorne",
+    "item": "Popcorn",
+    "brand": "Kroger",
+    "price": "$10.00",
+    "size": "2"
+},
+
+{
+    "name": "Grocery Outlet",
+    "description": "Beaverton",
+    "item": "Popcorn",
+    "brand": "Chicken",
+    "price": "$1.00",
+    "size": "18"
+},
+
+{
+    "name": "Trader Joes",
+    "description": "Chapman",
+    "item": "Popcorn",
+    "brand": "Organicness",
+    "price": "$70.00",
+    "size": "1"
+},
+
+{
+    "name": "Caddy",
+    "description": "Terwilliger",
+    "item": "Apples",
+    "brand": "Bananas",
+    "price": "$50.00",
+    "size": "10",
+    "unit": "ml"
+},
+
+{
+    "name": "Winco",
+    "description": "Gateway",
+    "item": "Apples",
+    "brand": "Red",
+    "price": "$4.00",
+    "size": "10",
+    "unit": "ml"
+},
+
+{
+    "name": "Gorditos",
+    "description": "Northwest",
+    "item": "Apples",
+    "brand": "Mandarin",
+    "price": "$63.00",
+    "size": "5",
+    "unit": "ml"
+}
+
+]

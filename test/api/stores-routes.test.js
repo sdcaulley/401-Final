@@ -37,18 +37,21 @@ let storeTestTwo = {
 };
 
 describe('store routes', () => {
+
     let token = '';
     let role = '';
 
     before(() => {
         return User.findOne({ name: 'test' })
             .then(user => {
+                console.log(user);
                 return Token.sign(user.id);
             })
             .then(data => {
                 return token = data;
             });
     });
+    
 
     // TODO: request accounts here and get role for that account and replace following code
     // take this out when we have accounts object
@@ -91,21 +94,27 @@ describe('store routes', () => {
                 storeTestTwo.__v = res.body.__v;
                 storeTestTwo._id = res.body._id;
                 assert.ok(storeTestTwo._id);
-            });
+            })
+    });
+    
+    it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
+        return request.get('/stores')
+            .set('Authorization', token)
+            .then(res => {
+                const itemStore = res.body[0];
+                //we are saving a store for testing purposes in the items test so there is one exra store being saved
+                console.log(res.body)
+                assert.equal(res.body[0]._id, itemStore._id)
+                assert.equal(res.body[1]._id, storeTestTwo._id);
+                assert.equal(res.body[2]._id, storeTest._id);
+                assert.equal(res.body[3]._id, storeTestOne._id);
+                assert.equal(res.body[0].unitPrice, 0.2);
+                assert.equal(res.body[1].unitPrice, 2);
+                assert.equal(res.body[2].unitPrice, 20);
+                assert.equal(res.body[3].unitPrice, 1000);
+        });
     });
 
-    // it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
-    //     return request.get('/stores')
-    //         .set('Authorization', token)
-    //         .then(res => {
-    //             assert.equal(res.body[0]._id, storeTestTwo._id);
-    //             assert.equal(res.body[1]._id, storeTest._id);
-    //             assert.equal(res.body[2]._id, storeTestOne._id);
-    //             assert.equal(res.body[0].unitPrice, 2);
-    //             assert.equal(res.body[1].unitPrice, 20);
-    //             assert.equal(res.body[2].unitPrice, 1000);
-    //         });
-    // });
 
     it('GET /stores/:id - gets specific store by ID', () => {
         return request.get(`/stores/${storeTest._id}`)
@@ -143,6 +152,7 @@ describe('store routes', () => {
                 }
             );
     });
+
     it.skip('PUT /stores/:id - updates store but we are doing a GET request in order to save store object', () => {
         return request.put(`/stores/${storeTestOne._id}`)
             .set('role', role)
@@ -164,5 +174,6 @@ describe('store routes', () => {
                 assert.equal(stores.length, 2)
                 assert.equal(stores[1].name, 'Whole Foods')
             });
+
     });
-});
+
