@@ -37,18 +37,26 @@ describe('account api', () => {
     };
 
     before(() => {
-        return saveResource(testList, '/lists')
+        return saveResourceRole(testList, '/lists')
             .then(list => {
                 return listId = list._id;
             });
     });
 
     before(() => {
-        return saveResource(testList2, '/lists')
+        return saveResourceRole(testList2, '/lists')
             .then(list => {
                 return listId2 = list._id;
             });
     });
+
+    function saveResourceRole(resource, route) {
+        return request.post(route)
+            .set('Authorization', token)
+            .set('Role', 'owner')
+            .send(resource)
+            .then(res => res.body);
+    }
 
     function saveResource(resource, route) {
         return request.post(route)
@@ -65,7 +73,7 @@ describe('account api', () => {
             list: [listId]
         };
 
-        return saveResource(accountOne, '/accounts')
+        return saveResourceRole(accountOne, '/accounts')
             .then(savedAccount => {
                 assert.isOk(savedAccount._id);
                 accountOne._id = savedAccount._id;
@@ -81,6 +89,7 @@ describe('account api', () => {
             .then(data => {
                 request.post(`/accounts/${account1._id}/addmember`)
                     .set('Authorization', token)
+                    .set('Role', 'owner')
                     .send({ user: data._id, role: 'viewer' })
                     .then(res => {
                         const results = res.body.members.filter(x => {
@@ -94,6 +103,7 @@ describe('account api', () => {
     it('add a new list', () => {
         return request.post(`/accounts/${account1._id}/addnewlist`)
             .set('Authorization', token)
+            .set('Role', 'owner')
             .send({ list_id: listId2 })
             .then(res => {
                 assert.include(res.body.list, listId2);
@@ -119,6 +129,7 @@ describe('account api', () => {
     it('remove user from account', () => {
         return request.post(`/accounts/${account1._id}/removemember`)
             .set('Authorization', token)
+            .set('Role', 'owner')
             .send({ userId: userId1._id })
             .then(res => {
                 const results = res.body.members.filter(x => {
@@ -133,6 +144,7 @@ describe('account api', () => {
     it('remove list from account', () => {
         return request.post(`/accounts/${account1._id}/removelist`)
             .set('Authorization', token)
+            .set('Role', 'owner')
             .send({ list_id: listId })
             .then(res => {
                 assert.notInclude(res.body.list, listId);
@@ -142,6 +154,7 @@ describe('account api', () => {
     it('delete an account', () => {
         return request.delete(`/accounts/${account1._id}`)
             .set('Authorization', token)
+            .set('Role', 'owner')
             .then(res => {
                 assert.deepEqual(res.body, { deleted: true });
             });
