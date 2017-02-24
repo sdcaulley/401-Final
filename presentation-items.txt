@@ -1,0 +1,19 @@
+[
+{
+    "name": "Computer",
+    "attributes": ["organic", "local"],
+    "stores": []
+},
+
+{
+    "name": "Popcorn",
+    "attributes": ["gluten"],
+    "stores": []
+},
+
+{
+    "name": "Apples",
+    "attributes": ["fruit"],
+    "stores": []
+}
+]
