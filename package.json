@@ -1,40 +1,41 @@
 {
-  "name": "final-project",
-  "version": "1.0.0",
-  "description": "The first final for the 401 class.",
-  "main": "node server",
-  "scripts": {
-    "lint": "eslint {lib, test}/*/*.js",
-    "pretest": "npm run lint",
-    "test": "mocha --recursive",
-    "start": "nodemon server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Clairefollett/401-Final.git"
-  },
-  "author": "Dream-Team",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Clairefollett/401-Final/issues"
-  },
-  "homepage": "https://github.com/Clairefollett/401-Final#readme",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
-    "eslint": "^3.16.0",
-    "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
-    "promise": "^7.1.1",
-    "superagent": "^3.4.4"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.16.1",
-    "express": "^4.14.1",
-    "jsonwebtoken-promisified": "^1.0.3",
-    "mongoose": "^4.8.4",
-    "mongoose-currency": "^0.2.0",
-    "morgan": "^1.8.1"
-  }
+    "name": "final-project",
+    "version": "1.0.0",
+    "description": "The first final for the 401 class.",
+    "main": "node server",
+    "scripts": {
+        "lint": "eslint {lib, test}/*/*.js",
+        "pretest": "npm run lint",
+        "test": "mocha --recursive",
+        "start": "node server",
+        "start:watch": "nodemon server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Clairefollett/401-Final.git"
+    },
+    "author": "Dream-Team",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Clairefollett/401-Final/issues"
+    },
+    "homepage": "https://github.com/Clairefollett/401-Final#readme",
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "chai-http": "^3.0.0",
+        "eslint": "^3.16.0",
+        "mocha": "^3.2.0",
+        "nodemon": "^1.11.0",
+        "promise": "^7.1.1",
+        "superagent": "^3.4.4"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.16.1",
+        "express": "^4.14.1",
+        "jsonwebtoken-promisified": "^1.0.3",
+        "mongoose": "^4.8.4",
+        "mongoose-currency": "^0.2.0",
+        "morgan": "^1.8.1"
+    }
 }
