@@ -9,11 +9,11 @@ const app = require('../../lib/app');
 
 const request = chai.request(app);
 
-describe('ITEMS API ROUTE TESTS', () => {
+describe.skip('ITEMS API ROUTE TESTS', () => {
 
     let token = '';
     before(() => {
-        return User.findOne({ name: 'test' })
+        return User.findOne({ name: 'me' })
             .then(user => {
                 return Token.sign(user.id);
             })
