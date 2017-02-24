@@ -7,7 +7,7 @@ const request = chai.request(app);
 const User = require('../../lib/models/user-schema');
 const Token = require('../../lib/auth/token');
 
-describe.skip('list api', () => {
+describe('list api', () => {
 
     let token = '';
     before(() => {

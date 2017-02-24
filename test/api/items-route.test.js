@@ -9,7 +9,7 @@ const app = require('../../lib/app');
 
 const request = chai.request(app);
 
-describe.skip('ITEMS API ROUTE TESTS', () => {
+describe('ITEMS API ROUTE TESTS', () => {
 
     let token = '';
     before(() => {
@@ -29,11 +29,11 @@ describe.skip('ITEMS API ROUTE TESTS', () => {
             .then(items => assert.deepEqual(items, []));
     });
 
-    let cheese = { item: 'cheese', attributes: ['American'], store: 'Fred Meyer'  };
+    let cheese = { item: 'cheese', attributes: ['American'], store: 'Fred Meyer' };
     let stinkyCheese = { item: 'stinky cheese', attributes: ['Italian'], store: 'Fred Meyer' };
     let worldsWorst = { item: 'world\'s stinkiest cheese', attributes: ['French'], store: 'Fred Meyer' };
 
-    let fredMeyer = { 
+    let fredMeyer = {
         'name': 'Fred Meyer',
         'description': 'Burlingame Fred Meyer',
         'brand': 'Alpenrose',
