@@ -1,7 +1,8 @@
 [
     {
         "name": "Fred Meyer",
-        "description": "Burlingame Fred Meyer",
+        "description": "Burlingame",
+        "item": "Milk",
         "brand": "Alpenrose",
         "price": "$2.00",
         "size": "1000",
@@ -11,6 +12,7 @@
     {
         "name": "Walmart",
         "description": "Pioneer Square",
+        "item": "Milk",
         "brand": "Moo",
         "price": "$0.50",
         "size": "1000",
@@ -20,6 +22,7 @@
     {
         "name": "Whole Foods",
         "description": "The Pearl",
+        "item": "Milk",
         "brand": "Super Expensive",
         "price": "$10.00",
         "size": "1000",
@@ -28,7 +31,8 @@
 
     {
         "name": "Fred Meyer",
-        "description": "Burlingame Fred Meyer",
+        "description": "Burlingame",
+        "item": "Eggs",
         "brand": "Kroger",
         "price": "$5.00",
         "size": "18"
@@ -37,6 +41,7 @@
     {
         "name": "Walmart",
         "description": "Pioneer Square",
+        "item": "Eggs",
         "brand": "Chicken",
         "price": "$1.00",
         "size": "18"
@@ -45,6 +50,7 @@
     {
         "name": "Whole Foods",
         "description": "The Pearl",
+        "item": "Eggs",
         "brand": "Organicness",
         "price": "$7.00",
         "size": "18"
@@ -52,7 +58,8 @@
 
     {
         "name": "Fred Meyer",
-        "description": "Burlingame Fred Meyer",
+        "description": "Burlingame",
+        "item": "Orange Juice",
         "brand": "Orangie",
         "price": "$5.00",
         "size": "1000",
@@ -62,6 +69,7 @@
     {
         "name": "Walmart",
         "description": "Pioneer Square",
+        "item": "Orange Juice",
         "brand": "Cuties",
         "price": "$4.00",
         "size": "1000",
@@ -71,6 +79,7 @@
     {
         "name": "Whole Foods",
         "description": "The Pearl",
+        "item": "Orange Juice",
         "brand": "Mandarin",
         "price": "$6.00",
         "size": "1000",
