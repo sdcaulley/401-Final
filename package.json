@@ -7,7 +7,7 @@
     "lint": "eslint {lib, test}/*/*.js",
     "pretest": "npm run lint",
     "test": "mocha --recursive",
-    "start": "node server"
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "chai-http": "^3.0.0",
     "eslint": "^3.16.0",
     "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
     "promise": "^7.1.1",
     "superagent": "^3.4.4"
   },
@@ -37,4 +38,3 @@
     "morgan": "^1.8.1"
   }
 }
-
