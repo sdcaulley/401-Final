@@ -4,6 +4,7 @@ chai.use(chaiHttp);
 const assert = chai.assert;
 const User = require('../../lib/models/user-schema');
 const Token = require('../../lib/auth/token');
+const Store = require('../../lib/models/store-schema');
 
 const app = require('../../lib/app');
 
@@ -31,9 +32,9 @@ describe('ITEMS API ROUTE TESTS', () => {
             .then(items => assert.deepEqual(items, []));
     });
 
-    let cheese = { item: 'cheese', attributes: ['American'], store: 'Fred Meyer' };
-    let stinkyCheese = { item: 'stinky cheese', attributes: ['Italian'], store: 'Fred Meyer' };
-    let worldsWorst = { item: 'world\'s stinkiest cheese', attributes: ['French'], store: 'Fred Meyer' };
+    let cheese = { name: 'cheese', attributes: ['American'], store: [] };
+    let stinkyCheese = { name: 'stinky cheese', attributes: ['Italian'], store: [] };
+    let worldsWorst = { name: 'world\'s stinkiest cheese', attributes: ['French'], store: [] };
 
     let fredMeyer = {
         'name': 'Fred Meyer',
@@ -61,7 +62,8 @@ describe('ITEMS API ROUTE TESTS', () => {
     }
 
     before('loads store for testing', () => {
-        saveStore(fredMeyer);
+        return saveStore(fredMeyer)
+            .then(store => fredMeyer._id = store._id);
     });
 
     // TODO: request accounts here and get role for that account and replace following code
@@ -75,6 +77,17 @@ describe('ITEMS API ROUTE TESTS', () => {
                 cheese._id = savedItem._id;
                 assert.equal(savedItem.item, cheese.item);
             });
+    });
+
+    it('POST add store to item', () => {
+        return request.post(`/items/${cheese._id}/addstore`)
+            .set('Authorization', token)
+            .set('Role', 'owner')
+            .send({ store_id: fredMeyer._id })
+            .then(res => {
+                assert.include(res.body.stores, fredMeyer._id);
+            });
+
     });
 
     it('GET /items returns list of items', () => {
@@ -96,6 +109,16 @@ describe('ITEMS API ROUTE TESTS', () => {
     });
 
 
+
+    it('removes store from item', () => {
+        return request.post(`/items/${cheese._id}/removestore`)
+            .set('Authorization', token)
+            .set('Role', 'owner')
+            .send({ store_id: fredMeyer._id })
+            .then(res => {
+                assert.equal(res.body.stores, undefined);
+            });
+    });
     // TODO: request accounts here and get role for that account and replace following code
     // take this out when we have accounts object
     it('DELETE /items/:id deletes item by ID', () => {
