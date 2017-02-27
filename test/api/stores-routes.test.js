@@ -81,7 +81,7 @@ describe('store routes', () => {
                 storeTestTwo.__v = res.body.__v;
                 storeTestTwo._id = res.body._id;
                 assert.ok(storeTestTwo._id);
-            })
+            });
     });
 
     it('GET /stores - gets all stores and sorts by unit price highest to lowest', () => {
@@ -90,8 +90,8 @@ describe('store routes', () => {
             .then(res => {
                 const itemStore = res.body[0];
                 //we are saving a store for testing purposes in the items test so there is one exra store being saved
-                console.log(res.body)
-                assert.equal(res.body[0]._id, itemStore._id)
+                console.log(res.body);
+                assert.equal(res.body[0]._id, itemStore._id);
                 assert.equal(res.body[1]._id, storeTestTwo._id);
                 assert.equal(res.body[2]._id, storeTest._id);
                 assert.equal(res.body[3]._id, storeTestOne._id);
@@ -141,6 +141,6 @@ describe('store routes', () => {
             .send({ store_name: 'Whole Foods' })
             .then(res => {
                 assert.deepEqual(res.body.name, 'Whole Foods');
-            })
+            });
     });
 });
